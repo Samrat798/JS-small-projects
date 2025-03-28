@@ -30,7 +30,39 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-const header = document.querySelector('.header');
+// Smooth scroll
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+btnScrollTo.addEventListener('click', function (e) {
+  const s1coords = section1.getBoundingClientRect();
+  // window.scrollTo({
+  //   left: s1coords.left + window.pageXOffset,
+  //   top: s1coords.top + window.pageYOffset,
+  //   behavior: 'smooth',
+  // });
+
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
+
+// event
+/*const h1 = document.querySelector('h1');
+
+const alertH1 = function (e) {
+  alert('onMouseOver: Great! You are reading the heading!');
+};
+
+h1.addEventListener('mouseenter', alertH1);
+
+setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
+
+// h1.onmouseenter = function (e) {
+//   alert('onmouseEnter: Great! You are reading the heading.');
+// };
+*/
+
+// cookie
+/*const header = document.querySelector('.header');
 const message = document.createElement('div');
 message.classList.add('cookie-message');
 // meaasge.textContent = 'We use cookied for improved functionality and analytics';
@@ -44,3 +76,11 @@ document
   .addEventListener('click', function () {
     message.remove();
   });
+
+message.style.backgroundColor = '#37383d';
+message.style.width = '100%';
+message.style.height =
+  Number.parseFloat(getComputedStyle(message).height, 10) + 30 + 'px';
+
+document.documentElement.style.setProperty('--color-primary', 'orangered');
+*/
