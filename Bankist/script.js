@@ -9,6 +9,9 @@ const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabContent = document.querySelectorAll('.operations__content');
 
 function openModal(e) {
   e.preventDefault();
@@ -58,6 +61,29 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
     const id = e.target.getAttribute('href');
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
+});
+
+// Tabbed component
+
+tabsContainer.addEventListener('click', function (e) {
+  e.preventDefault();
+  const clieked = e.target.closest('.operations__tab');
+
+  // Guard clause
+  if (!clieked) return;
+
+  // active tab
+  tabs.forEach((t) => t.classList.remove('operations__tab--active'));
+  clieked.classList.add('operations__tab--active');
+
+  // active content area
+
+  tabContent.forEach((tc) =>
+    tc.classList.remove('operations__content--active')
+  );
+  document
+    .querySelector(`.operations__content--${clieked.dataset.tab}`)
+    .classList.add('operations__content--active');
 });
 
 // event propagation
@@ -131,6 +157,7 @@ document.documentElement.style.setProperty('--color-primary', 'orangered');
 */
 
 //  DOM traversing
+/*
 const h1 = document.querySelector('h1');
 
 //  going downwards: child
@@ -144,3 +171,15 @@ h1.lastElementChild.style.color = 'orange';
 console.log(h1.parentNode);
 console.log(h1.parentElement);
 h1.closest('.header').style.background = 'var(--gradient-secondary)';
+
+h1.closest('h1').style.background = 'var(--gradient-primary)';
+
+// Going sideways: siblings
+console.log(h1.previousElementSibling);
+console.log(h1.nextElementSibling);
+
+console.log(h1.parentElement.children);
+[...h1.parentElement.children].forEach(function (el) {
+  if (el !== h1) el.style.transform = 'scale(0.5)';
+});
+*/
