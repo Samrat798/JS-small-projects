@@ -12,6 +12,7 @@ const section1 = document.querySelector('#section--1');
 const tabs = document.querySelectorAll('.operations__tab');
 const tabsContainer = document.querySelector('.operations__tab-container');
 const tabContent = document.querySelectorAll('.operations__content');
+const nav = document.querySelector('.nav');
 
 function openModal(e) {
   e.preventDefault();
@@ -86,8 +87,7 @@ tabsContainer.addEventListener('click', function (e) {
 
 // Menu fade animation
 
-const nav = document.querySelector('.nav');
-const handelHover = function (e, opacity) {
+const handelHover = function (e) {
   if (e.target.classList.contains('nav__link')) {
     const link = e.target;
     const siblings = link.closest('.nav').querySelectorAll('.nav__link');
@@ -104,6 +104,22 @@ nav.addEventListener('mouseover', handelHover.bind(0.5));
 
 nav.addEventListener('mouseout', handelHover.bind(1));
 
+// Sticky Navigation
+// const initialCoords = section1.getBoundingClientRect();
+// window.addEventListener('scroll', function (e) {
+//   if (this.window.scrollY > initialCoords.top) nav.classList.add('sticky');
+//   else nav.classList.remove('sticky');
+// });
+
+// Sticky navigation: Intersection observer API
+const obsCallBack = function (entries, observer) {};
+
+const obsOptions = {
+  root: null,
+  threshold: 0.1,
+};
+const observer = new IntersectionObserver(obsCallBack, obsOptions);
+observer.observe(section1);
 // event propagation
 /*
 const randomInt = (min, max) =>
