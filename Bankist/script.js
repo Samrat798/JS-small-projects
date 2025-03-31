@@ -64,7 +64,6 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 });
 
 // Tabbed component
-
 tabsContainer.addEventListener('click', function (e) {
   e.preventDefault();
   const clieked = e.target.closest('.operations__tab');
@@ -77,7 +76,6 @@ tabsContainer.addEventListener('click', function (e) {
   clieked.classList.add('operations__tab--active');
 
   // active content area
-
   tabContent.forEach((tc) =>
     tc.classList.remove('operations__content--active')
   );
@@ -85,6 +83,26 @@ tabsContainer.addEventListener('click', function (e) {
     .querySelector(`.operations__content--${clieked.dataset.tab}`)
     .classList.add('operations__content--active');
 });
+
+// Menu fade animation
+
+const nav = document.querySelector('.nav');
+const handelHover = function (e, opacity) {
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+    const logo = link.closest('.nav').querySelector('img');
+    siblings.forEach((el) => {
+      if (el !== link) el.style.opacity = this;
+    });
+    logo.style.opacity = this;
+  }
+};
+
+// passing argument into handler
+nav.addEventListener('mouseover', handelHover.bind(0.5));
+
+nav.addEventListener('mouseout', handelHover.bind(1));
 
 // event propagation
 /*
