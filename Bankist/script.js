@@ -13,6 +13,9 @@ const tabs = document.querySelectorAll('.operations__tab');
 const tabsContainer = document.querySelector('.operations__tab-container');
 const tabContent = document.querySelectorAll('.operations__content');
 const nav = document.querySelector('.nav');
+const header = document.querySelector('.header');
+const allSections = document.querySelectorAll('.section');
+const imgTargets = document.querySelectorAll('img[data-src]');
 
 function openModal(e) {
   e.preventDefault();
@@ -113,7 +116,6 @@ nav.addEventListener('mouseout', handelHover.bind(1));
 
 // Sticky navigation: Intersection observer API
 
-const header = document.querySelector('.header');
 const navHeight = nav.getBoundingClientRect().height;
 
 const stickyNav = function (entries) {
@@ -131,7 +133,6 @@ headerObserver.observe(header);
 
 // Reveling elements on scroll
 
-const allSections = document.querySelectorAll('.section');
 const reveleSection = function (entries, observer) {
   const [entry] = entries;
   if (!entry.isIntersecting) return;
@@ -145,11 +146,11 @@ const sectionObeserver = new IntersectionObserver(reveleSection, {
 
 allSections.forEach(function (section) {
   sectionObeserver.observe(section);
-  section.classList.add('section--hidden');
+  // section.classList.add('section--hidden');
+  // need to uncomment/////////////////////////////////////////////////////////////////
 });
 
 // Lazy loading images
-const imgTargets = document.querySelectorAll('img[data-src]');
 
 const loadImg = function (entries, observer) {
   const [entry] = entries;
@@ -171,6 +172,63 @@ const imgObserver = new IntersectionObserver(loadImg, {
 
 imgTargets.forEach((img) => imgObserver.observe(img));
 
+// Slider
+const slides = document.querySelectorAll('.slide');
+const leftBtn = document.querySelector('.slider__btn--left');
+const rightBtn = document.querySelector('.slider__btn--right');
+
+let currSlide = 0;
+const maxSlide = slides.length;
+
+// slides.forEach((s, i) => (s.style.transform = `translateX(${100 * i}%)`));
+
+const goToSlide = function (slide) {
+  slides.forEach(
+    (s, i) => (s.style.transform = `translateX(${100 * (i - slide)}%)`)
+  );
+};
+
+goToSlide(currSlide);
+
+const nextSlide = function () {
+  if (currSlide === maxSlide - 1) {
+    currSlide = 0;
+  } else {
+    currSlide++;
+  }
+  goToSlide(currSlide);
+};
+
+const prevSlide = function () {
+  if (currSlide === 0) {
+    currSlide = maxSlide - 1;
+  } else {
+    currSlide--;
+  }
+  goToSlide(currSlide);
+};
+
+rightBtn.addEventListener('click', nextSlide);
+
+leftBtn.addEventListener('click', prevSlide);
+
+// const slides = document.querySelectorAll('.slide');
+// const leftBtn = document.querySelector('.slider__btn--left');
+// const rightBtn = document.querySelector('.slider__btn--right');
+
+// let currSlide = 0;
+// const maxSlide = slides.length;
+
+// slides.forEach((s, i) => (s.style.transform = `translateX(${100 + i}%)`));
+
+// rightBtn.addEventListener('click', function () {
+//   if (currSlide === maxSlide - 1) {
+//     currSlide = 0;
+//   } else {
+//     currSlide++;
+//   }
+//   slides.forEach((s, i) => (s.style.transform = `translateX(${100 + i}%)`));
+// });
 // event propagation
 /*
 const randomInt = (min, max) =>
